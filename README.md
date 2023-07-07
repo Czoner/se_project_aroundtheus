@@ -11,4 +11,4 @@ This project was made for all elements to fit inside on popular device screen si
 - Figma design
 
 **Intro**
-Here's the link to the website:
+Here's the link to the website: https://czoner.github.io/se_project_aroundtheus/
