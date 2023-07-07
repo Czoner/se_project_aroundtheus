@@ -1,0 +1,11 @@
+.Author {
+  margin-top: 67px;
+  margin-bottom: 60px;
+  color: #545454;
+}
+
+@media screen and (max-width: 635px) {
+  .Author {
+    margin: 48px 19px 36px 19px;
+  }
+}

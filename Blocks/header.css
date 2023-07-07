@@ -1,0 +1,18 @@
+.header {
+  height: 74px;
+  margin-top: 45px;
+  border-bottom: 1px solid #545454;
+}
+
+@media screen and (max-width: 635px) {
+  .image__Logo {
+    width: 126px;
+    height: 24px;
+    margin: 28px auto auto 27px;
+  }
+
+  .header {
+    margin: 0;
+    max-width: 370px;
+  }
+}
