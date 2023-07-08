@@ -12,7 +12,7 @@
   max-width: 219px;
 }
 
-.cards__list {
+.card__list {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
@@ -26,7 +26,6 @@
   flex-direction: column;
   border-radius: 10px;
   overflow: hidden;
-  height: 361px;
 }
 
 .card__image {
@@ -52,5 +51,5 @@
 }
 
 .card__like-button:hover {
-  background-image: url(../Images/heart\ hover.svg);
+  opacity: 0.5;
 }
