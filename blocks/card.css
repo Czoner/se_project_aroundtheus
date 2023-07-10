@@ -1,3 +1,10 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .card__title {
   font-family: "Inter", Arial, sans-serif;
   font-size: 24px;
@@ -10,26 +17,6 @@
   overflow: hidden;
   margin: 0;
   max-width: 219px;
-}
-
-.cards {
-  margin-top: 51px;
-}
-
-.cards__list {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, 282px);
-  grid-gap: 20px 17px;
-  padding: 0;
-  margin: 0;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  overflow: hidden;
 }
 
 .card__image {
@@ -57,10 +44,4 @@
 .card__like-button:hover {
   opacity: 0.5;
   cursor: pointer;
-}
-
-@media screen and (max-width: 635px) {
-  .cards__list {
-    margin-top: 36px;
-  }
 }
