@@ -29,3 +29,19 @@ let object6 = {
 };
 
 const initialCards = [object1, object2, object3, object4, object5, object6];
+
+const closeButton = document.querySelector(".modal__close");
+const editProfileButton = document.querySelector(".profile__edit-button");
+const popUp = document.querySelector(".modal");
+
+function opening() {
+  popUp.classList.add("modal_opened");
+  console.log("I have click it and it worked");
+}
+editProfileButton.addEventListener("click", opening);
+
+function closing() {
+  popUp.classList.remove("modal_opened");
+  console.log("i have closed the popup");
+}
+closeButton.addEventListener("click", closing);
