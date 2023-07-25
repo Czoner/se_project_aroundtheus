@@ -34,9 +34,26 @@ const closeButton = document.querySelector(".modal__close");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const popUp = document.querySelector(".modal");
 
+const profileFormElement = document.querySelector(".profile__info");
+const profileTitle = profileFormElement.querySelector(".profile__title");
+const descriptionJob = profileFormElement.querySelector(
+  ".profile__description"
+);
+const modalTitleEdit = document.querySelector("#profile-title-edit");
+const modalDescriptionEdit = document.querySelector(
+  "#profile-description-edit"
+);
+
+const profileModalForm = popUp.querySelector(".modal__form");
+const cardList = document.querySelector(".cards__list");
+const cardTemplate =
+  document.querySelector("#card-template").content.firstElementChild;
+
 function opening() {
   popUp.classList.add("modal_opened");
   console.log("I have click it and it worked");
+  modalTitleEdit.value = profileTitle.textContent;
+  modalDescriptionEdit.value = descriptionJob.textContent;
 }
 editProfileButton.addEventListener("click", opening);
 
@@ -45,3 +62,27 @@ function closing() {
   console.log("i have closed the popup");
 }
 closeButton.addEventListener("click", closing);
+
+function getCardElement(Data) {
+  const cardElement = cardTemplate.cloneNode(true);
+  let cardImage = cardElement.querySelector(".card__image");
+  cardImage.setAttribute("src", Data.link);
+  let cardTitle = cardElement.querySelector(".card__title");
+  cardTitle.setAttribute("alt", Data.name);
+  cardTitle.textContent = Data.name;
+  console.log(cardTitle);
+  return cardElement;
+}
+
+profileModalForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  profileTitle.textContent = modalTitleEdit.value;
+  descriptionJob.textContent = modalDescriptionEdit.value;
+  closing();
+});
+
+initialCards.forEach(function (Data) {
+  const cardElement = getCardElement(Data);
+
+  cardList.prepend(cardElement);
+});
