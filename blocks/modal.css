@@ -54,7 +54,7 @@
   height: 23px;
 }
 
-.image__title {
+.modal__title {
   font-family: "Inter", Arial, sans-serif;
   font-size: 12px;
   font-weight: 400;
@@ -63,7 +63,7 @@
   text-align: left;
 }
 
-.image__preview {
+.modal__preview {
   max-height: 540px;
 }
 
