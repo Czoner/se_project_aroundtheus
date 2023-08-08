@@ -46,7 +46,7 @@
       </main>
     </div>
 
-    <div class="modal">
+    <div class="modal" id="edit-profile-modal">
       <div class="modal__container">
         <button type="submit" class="modal__close"></button>
         <h2 class="modal__heading">Edit Profile</h2>
@@ -72,9 +72,47 @@
       </div>
     </div>
 
+    <div class="modal" id="add-modal">
+      <div class="modal__container">
+        <button type="submit" class="modal__close"></button>
+        <h2 class="modal__heading">New place</h2>
+        <form class="modal__form" id="add-card-info">
+          <input
+            class="modal__input modal__input_type_title"
+            type="text"
+            id="card-title-edit"
+            name="title"
+            placeholder="Title"
+            required
+          />
+          <input
+            class="modal__input modal__input_type_link"
+            type="url"
+            id="card-image-edit"
+            name="link"
+            placeholder="Image link"
+            required
+          />
+          <button type="submit" class="modal__button">Create</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal modal-images-preview">
+      <div class="modal__container modal__container_preview">
+        <button
+          type="submit"
+          class="modal__close modal__close_preview"
+        ></button>
+        <img class="image__preview" src="" alt="" />
+        <p class="image__title"></p>
+      </div>
+    </div>
+
     <template id="card-template">
       <li class="card">
         <img src="" class="card__image" alt="" />
+        <img src="./images/Trash.svg" class="card__trash" alt="TrashCan" />
         <div class="card__description">
           <h3 class="card__title"></h3>
           <button

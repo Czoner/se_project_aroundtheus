@@ -3,6 +3,7 @@
   flex-direction: column;
   border-radius: 10px;
   overflow: hidden;
+  position: relative;
 }
 
 .card__title {
@@ -24,6 +25,32 @@
   height: 282px;
 }
 
+.card__trash {
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+}
+
+.card__trash:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.image__title {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.image__preview {
+  max-height: 540px;
+}
+
 .card__description {
   display: flex;
   background-color: #fff;
@@ -39,6 +66,10 @@
   height: 18px;
   color: black;
   border: none;
+}
+
+.card__like-button_active {
+  background-image: url(../images/like-active.svg);
 }
 
 .card__like-button:hover {
