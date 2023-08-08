@@ -132,16 +132,12 @@
     padding: 25px 22px;
   }
 
-  .modal__container_preview {
-    padding: 0 29px;
-  }
-
   .modal__heading {
     margin-bottom: 70px;
   }
 
   .image__preview {
-    max-height: 299px;
+    min-height: 299px;
     max-width: 240px;
   }
 
@@ -161,7 +157,8 @@
   }
 
   .modal__close_preview {
-    top: -33px;
+    right: -7px;
+    top: -7px;
     width: 30px;
     height: 30px;
   }
