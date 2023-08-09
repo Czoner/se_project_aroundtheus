@@ -64,14 +64,12 @@ function openModal(modal) {
 }
 
 function fillProfileForm() {
+  openModal(profileModal);
   profileTitleEdit.value = profileTitle.textContent;
   profileDescriptionEdit.value = descriptionJob.textContent;
 }
 
-editProfileButton.addEventListener("click", (fillProfileForm) => {
-  openModal(profileModal);
-  fillProfileForm();
-});
+editProfileButton.addEventListener("click", fillProfileForm);
 
 addCardButton.addEventListener("click", () => {
   openModal(addCardModal);
