@@ -130,8 +130,9 @@ addCardSubmit.addEventListener("submit", function (e) {
     name: title,
     link: image,
   });
-  cardList.prepend(card).reset();
+  cardList.prepend(card);
   closeModal(addCardModal);
+  e.target.reset();
 });
 
 initialCards.forEach(function (data) {
