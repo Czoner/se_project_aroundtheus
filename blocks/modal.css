@@ -63,6 +63,10 @@
   text-align: left;
 }
 
+.modal__error {
+  color: red;
+}
+
 .modal__preview {
   max-height: 540px;
 }
@@ -97,6 +101,10 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.modal__input_type_error {
+  border-bottom: 1px solid #ff0000;
+}
+
 .modal__input::placeholder {
   font-family: "Inter", Arial, sans-serif;
   font-size: 14px;
@@ -121,6 +129,10 @@
   text-align: center;
   border: none;
   cursor: pointer;
+}
+
+.modal__button_disabled {
+  opacity: 0.2;
 }
 
 .modal__button:hover {
