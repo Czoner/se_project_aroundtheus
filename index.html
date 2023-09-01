@@ -57,16 +57,22 @@
             id="profile-title-edit"
             name="title"
             placeholder="Name"
+            minlength="2"
+            maxlength="40"
             required
           />
+          <span class="popup__error" id="profile-title-edit-error"></span>
           <input
             class="modal__input"
             type="text"
             id="profile-description-edit"
             name="description"
             placeholder="Description"
+            minlength="2"
+            maxlength="200"
             required
           />
+          <span class="popup__error" id="profile-description-edit-error"></span>
           <button type="submit" class="modal__button">Save</button>
         </form>
       </div>
@@ -83,17 +89,28 @@
             id="card-title-edit"
             name="title"
             placeholder="Title"
+            minlength="1"
+            maxlength="30"
             required
           />
+          <span class="popup__error" id="card-title-edit-error"></span>
           <input
             class="modal__input modal__input_type_link"
             type="url"
             id="card-image-edit"
             name="link"
             placeholder="Image link"
+            type="url"
             required
           />
-          <button type="submit" class="modal__button">Create</button>
+          <span class="popup__error" id="card-image-edit-error"></span>
+          <button
+            type="submit"
+            class="modal__button popup__button_disabled"
+            disabled
+          >
+            Create
+          </button>
         </form>
       </div>
     </div>
@@ -125,5 +142,6 @@
     </template>
 
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validation.js" defer></script>
   </body>
 </html>

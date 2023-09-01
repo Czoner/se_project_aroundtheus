@@ -90,6 +90,14 @@ previewImageClose.addEventListener("click", () => {
   closeModal(previewImageModal);
 });
 
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeModal(profileModal);
+    closeModal(addCardModal);
+    closeModal(previewImageModal);
+  }
+});
+
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
