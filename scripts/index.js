@@ -119,7 +119,7 @@ function getCardElement(data) {
   });
   cardImage.addEventListener("click", () => {
     previewImageElement.setAttribute("src", data.link);
-    previewImageTitle.setAttribute("atl", data.name);
+    previewImageTitle.setAttribute("alt", data.name);
     openModal(previewImageModal);
     previewImageTitle.textContent = data.name;
   });
