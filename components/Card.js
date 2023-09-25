@@ -2,7 +2,7 @@ export default class Card {
   constructor(data, cardSelector, handleImageClick) {
     this._data = data;
     this._cardSelector = cardSelector;
-    this._handeImageClick = handleImageClick;
+    this._handleImageClick = handleImageClick;
   }
 
   _setEventListeners() {
@@ -18,15 +18,10 @@ export default class Card {
         this._handleDeleteIcon(this);
       });
     this._cardImageElement = this._cardElement.querySelector(".card__image");
-    this._cardImageElement.addEventListener("click", () => {
-      this._handleImageClick(this);
-    });
-  }
 
-  _handleImageClick() {
-    this._cardElement
-      .querySelector(".card__image")
-      .classList.add("modal-images-preview");
+    this._cardImageElement.addEventListener("click", () => {
+      this._handleImageClick(this._data);
+    });
   }
 
   _handleLikeIcon() {
