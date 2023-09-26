@@ -176,5 +176,8 @@ function createCard(initialCards) {
   return card.getview();
 }
 
-const editFormValidator = new FormValidator();
-editFormValidator.enableValidation(config);
+const editFormValidator = new FormValidator(config, profileModalForm);
+const AddFormValidator = new FormValidator(config, addCardSubmit);
+editFormValidator.enableValidation();
+AddFormValidator.enableValidation();
+AddFormValidator.resetValidation();
