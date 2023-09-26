@@ -66,6 +66,5 @@ export default class FormValidator {
 
   resetValidation() {
     this._submitValid = this._settings.submitButtonSelector;
-    this._submitValid.classList.add("modal__button_disabled");
   }
 }
