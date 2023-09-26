@@ -155,6 +155,7 @@ addCardSubmit.addEventListener("submit", function (e) {
   cardList.prepend(card);
   closeModal(addCardModal);
   e.target.reset();
+  addFormValidator.toggleButtonState();
 });
 
 initialCards.forEach(function (data) {
@@ -177,7 +178,6 @@ function createCard(initialCards) {
 }
 
 const editFormValidator = new FormValidator(config, profileModalForm);
-const AddFormValidator = new FormValidator(config, addCardSubmit);
+const addFormValidator = new FormValidator(config, addCardSubmit);
 editFormValidator.enableValidation();
-AddFormValidator.enableValidation();
-AddFormValidator.resetValidation();
+addFormValidator.enableValidation();
