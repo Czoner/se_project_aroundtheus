@@ -25,20 +25,24 @@ export default class FormValidator {
     this._hideInputError(inputEl);
   }
 
+  _checkFormValidity = () => {
+    this._inputElements.every((input) => input.validity.valid);
+  };
+
   toggleButtonState() {
     let foundInvalid = false;
-    this._inputElements.forEach((inputEl) => {
-      if (!inputEl.validity.valid) {
-        foundInvalid = true;
-      }
+    const isFormValid = this._checkFormValidity();
+    if (!isFormValid) {
+      foundInvalid = true;
+    }
 
-      if (foundInvalid) {
-        this._submitButton.classList.add(this._settings.inactiveButtonClass);
-        return (this._submitButton.disabled = true);
-      }
-      this._submitButton.classList.remove(this._settings.inactiveButtonClass);
-      this._submitButton.disabled = false;
-    });
+    if (foundInvalid) {
+      this._submitButton.classList.add(this._settings.inactiveButtonClass);
+      this._submitButton.disabled = true;
+      return;
+    }
+    this._submitButton.classList.remove(this._settings.inactiveButtonClass);
+    this._submitButton.disabled = false;
   }
 
   _setEventListeners() {
@@ -62,5 +66,9 @@ export default class FormValidator {
       evt.preventDefault();
     });
     this._setEventListeners();
+  }
+
+  resetValidation() {
+    isFormValid.resetForm();
   }
 }

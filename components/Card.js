@@ -6,11 +6,10 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLikeIcon(this);
-      });
+    this._likeButton = this._cardElement.querySelector(".card__like-button");
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeIcon(this);
+    });
 
     this._cardElement
       .querySelector(".card__trash")
@@ -24,14 +23,13 @@ export default class Card {
     });
   }
 
-  _handleLikeIcon() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
-  }
+  _handleLikeIcon = () => {
+    this._likeButton.classList.toggle("card__like-button_active");
+  };
 
   _handleDeleteIcon() {
     this._cardElement.remove();
+    this._element = null;
   }
 
   getview() {
