@@ -26,17 +26,12 @@ export default class FormValidator {
   }
 
   _checkFormValidity = () => {
-    this._inputElements.every((input) => input.validity.valid);
+    return this._inputElements.every((input) => input.validity.valid);
   };
 
   toggleButtonState() {
-    let foundInvalid = false;
     const isFormValid = this._checkFormValidity();
     if (!isFormValid) {
-      foundInvalid = true;
-    }
-    console.log(foundInvalid);
-    if (foundInvalid) {
       this._submitButton.classList.add(this._settings.inactiveButtonClass);
       this._submitButton.disabled = true;
       return;
