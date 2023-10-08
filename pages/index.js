@@ -1,5 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
 
 // const object1 = {
 //   name: "Yosemite Valley",
@@ -105,31 +106,6 @@ function closeByEscape(evt) {
   }
 }
 
-// function getCardElement(data) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardImage = cardElement.querySelector(".card__image");
-//   cardImage.setAttribute("src", data.link);
-//   cardImage.setAttribute("alt", data.name);
-//   const cardTitle = cardElement.querySelector(".card__title");
-//   cardTitle.textContent = data.name;
-//   // const likeButton = cardElement.querySelector(".card__like-button");
-//   // likeButton.addEventListener("click", () => {
-//   //   likeButton.classList.toggle("card__like-button_active");
-//   // });
-//   // const cardTrash = cardElement.querySelector(".card__trash");
-//   // cardTrash.addEventListener("click", () => {
-//   //   cardElement.remove();
-//   // });
-// cardImage.addEventListener("click", () => {
-//   previewImageElement.setAttribute("src", data.link);
-//   previewImageElement.setAttribute("alt", data.name);
-//   openModal(previewImageModal);
-//   previewImageTitle.textContent = data.name;
-// });
-
-//   return cardElement;
-// }
-
 function handleImageClick(data) {
   previewImageElement.setAttribute("src", data.link);
   previewImageElement.setAttribute("alt", data.name);
@@ -181,3 +157,15 @@ const editFormValidator = new FormValidator(config, profileModalForm);
 const addFormValidator = new FormValidator(config, addCardSubmit);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const cardElement = createCard(cardData);
+      section.addItem(cardElement);
+    },
+  },
+  ".card__list"
+);
+section.rendererItems();
