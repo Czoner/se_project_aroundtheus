@@ -31,18 +31,6 @@ function closeModal(modal) {
   // document.removeEventListener("keydown", closeByEscape);
 }
 
-modals.forEach((modal) => {
-  modal.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("modal_opened")) {
-      closeModal(modal);
-    }
-
-    if (evt.target.classList.contains("modal__close")) {
-      closeModal(modal);
-    }
-  });
-});
-
 function closeByEscape(evt) {
   if (evt.key === "Escape") {
     const openedModal = document.querySelector(".modal_opened");

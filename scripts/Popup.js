@@ -11,12 +11,12 @@ export default class Popup {
     this._popupElement.classList.remove("modal_opened");
   }
 
-  _handleEscClose = (evt) => {
-    if (evt.key === "Escape") {
-      this.close();
-      console.log("i esc key");
-    }
-  };
+  _handleEscClose(evt) {
+    // if (evt.key === "Escape") {
+    console.log("i esc key");
+    // this.close();
+    // }
+  }
 
   setEventListeners() {
     this._popupElement.addEventListener("mousedown", (evt) => {
@@ -28,7 +28,9 @@ export default class Popup {
         this.close();
       }
     });
-
-    this._popupElement.addEventListener("keydown", this._handleEscClose());
+    this._handleEscClose();
+    // this._popupElement.addEventListener("keydown", (e) =>
+    //   this._handleEscClose(e)
+    // );
   }
 }
