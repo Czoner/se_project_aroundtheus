@@ -1,4 +1,4 @@
-// import { container } from "webpack";
+import { container } from "webpack";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -26,7 +26,7 @@ addCardButton.addEventListener("click", () => {
 function handleImageClick(data) {
   previewImageElement.setAttribute("src", data.link);
   previewImageElement.setAttribute("alt", data.name);
-  // openModal(previewImageModal);
+  imagePreview.open();
   previewImageTitle.textContent = data.name;
 }
 
