@@ -9,11 +9,6 @@ newCardModal.setEventListeners();
 const newProfileModal = new PopupWithForm("#edit-profile-modal", () => {});
 newProfileModal.setEventListeners();
 
-function openModal(modal) {
-  // modal.classList.add("modal_opened");
-  // document.addEventListener("keydown", closeByEscape);
-}
-
 function fillProfileForm() {
   newProfileModal.open();
   profileTitleEdit.value = profileTitle.textContent;
@@ -25,18 +20,6 @@ editProfileButton.addEventListener("click", fillProfileForm);
 addCardButton.addEventListener("click", () => {
   newCardModal.open();
 });
-
-function closeModal(modal) {
-  // modal.classList.remove("modal_opened");
-  // document.removeEventListener("keydown", closeByEscape);
-}
-
-function closeByEscape(evt) {
-  if (evt.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-    closeModal(openedModal);
-  }
-}
 
 function handleImageClick(data) {
   previewImageElement.setAttribute("src", data.link);
@@ -65,11 +48,6 @@ addCardSubmit.addEventListener("submit", function (e) {
   e.target.reset();
   addFormValidator.toggleButtonState();
 });
-
-// initialCards.forEach(function (data) {
-//   const cardElement = createCard(data);
-//   cardList.prepend(cardElement);
-// });
 
 const config = {
   formSelector: ".modal__form",
