@@ -9,6 +9,7 @@ const newCardModal = new PopupWithForm("#add-modal", () => {});
 newCardModal.setEventListeners();
 const newProfileModal = new PopupWithForm("#edit-profile-modal", () => {});
 newProfileModal.setEventListeners();
+const imagePreview = new PopupWithImage(".modal-images-preview", () => {});
 
 function fillProfileForm() {
   newProfileModal.open();
