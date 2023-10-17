@@ -1,4 +1,5 @@
 // import { container } from "webpack";
+import "../pages/index.css";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -9,15 +10,25 @@ import UserInfo from "../scripts/UserInfo.js";
 const newCardModal = new PopupWithForm("#add-modal", () => {});
 newCardModal.setEventListeners();
 const userInformation = new UserInfo(profileTitle, descriptionJob);
-const newProfileModal = new PopupWithForm("#edit-profile-modal", () => {});
+const newProfileModal = new PopupWithForm("#edit-profile-modal", (values) => {
+  userInformation.setUserInfo(values);
+});
 newProfileModal.setEventListeners();
 const imagePreview = new PopupWithImage(".modal-images-preview", () => {});
 imagePreview.setEventListeners();
 
 function fillProfileForm() {
   newProfileModal.open();
-  userInformation.setUserInfo();
+  profileTitleEdit.value = profileTitle.textContent;
+  profileDescriptionEdit.value = descriptionJob.textContent;
 }
+
+// profileModalForm.addEventListener("submit", function (e) {
+//   e.preventDefault();
+//   console.log(userInformation.getUserInfo());
+//   userInformation.setUserInfo();
+//   newProfileModal.close();
+// });
 
 editProfileButton.addEventListener("click", fillProfileForm);
 
