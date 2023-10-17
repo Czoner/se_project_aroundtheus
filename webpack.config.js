@@ -8,15 +8,16 @@ module.exports = {
   entry: {
     main: "./src/index.js",
   },
-  stats: "errors-only",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
     publicPath: "",
   },
+  target: ["web", "es5"],
+  stats: "errors-only",
   mode: "development",
-  devserver: {
-    static: path.resolve(__dirname, "./dist"),
+  devServer: {
+    static: path.resolve(__dirname, "dist"),
     compress: true,
     port: 8080,
     open: true,
@@ -24,7 +25,7 @@ module.exports = {
     hot: false,
   },
   module: {
-    rule: [
+    rules: [
       {
         test: /\.js$/,
         loader: "babel-loader",
@@ -36,20 +37,15 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: { importLoaders: 1 },
           },
-          "postcss-loader",
         ],
       },
       {
-        // add the rule for processing files
         test: /\.(png|svg|jpg|jpeg|gif|woff(2)?|eot|ttf|otf)$/,
         type: "asset/resource",
       },
     ],
   },
-
-  stats: "errors-only",
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",

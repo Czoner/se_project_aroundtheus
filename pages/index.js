@@ -1,20 +1,22 @@
-import { container } from "webpack";
+// import { container } from "webpack";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../scripts/PopupWithForm.js";
 import PopupWithImage from "../scripts/PopupWithImage.js";
+import UserInfo from "../scripts/UserInfo.js";
 
 const newCardModal = new PopupWithForm("#add-modal", () => {});
 newCardModal.setEventListeners();
+const userInformation = new UserInfo(profileTitle, descriptionJob);
 const newProfileModal = new PopupWithForm("#edit-profile-modal", () => {});
 newProfileModal.setEventListeners();
 const imagePreview = new PopupWithImage(".modal-images-preview", () => {});
+imagePreview.setEventListeners();
 
 function fillProfileForm() {
   newProfileModal.open();
-  profileTitleEdit.value = profileTitle.textContent;
-  profileDescriptionEdit.value = descriptionJob.textContent;
+  userInformation.setUserInfo();
 }
 
 editProfileButton.addEventListener("click", fillProfileForm);
@@ -29,13 +31,6 @@ function handleImageClick(data) {
   imagePreview.open();
   previewImageTitle.textContent = data.name;
 }
-
-profileModalForm.addEventListener("submit", function (e) {
-  // e.preventDefault();
-  // profileTitle.textContent = profileTitleEdit.value;
-  // descriptionJob.textContent = profileDescriptionEdit.value;
-  // // closeModal(profileModal);
-});
 
 addCardSubmit.addEventListener("submit", function (e) {
   e.preventDefault();

@@ -7,6 +7,10 @@ export default class PopupWithImage extends Popup {
   }
 
   open() {
-    this._image.classList.add("modal_opened");
+    super.open();
+  }
+
+  close() {
+    super.close();
   }
 }
