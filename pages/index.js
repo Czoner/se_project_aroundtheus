@@ -3,6 +3,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../scripts/PopupWithForm.js";
+import PopupWithImage from "../scripts/PopupWithImage.js";
 
 const newCardModal = new PopupWithForm("#add-modal", () => {});
 newCardModal.setEventListeners();
@@ -24,15 +25,15 @@ addCardButton.addEventListener("click", () => {
 function handleImageClick(data) {
   previewImageElement.setAttribute("src", data.link);
   previewImageElement.setAttribute("alt", data.name);
-  openModal(previewImageModal);
+  // openModal(previewImageModal);
   previewImageTitle.textContent = data.name;
 }
 
 profileModalForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  profileTitle.textContent = profileTitleEdit.value;
-  descriptionJob.textContent = profileDescriptionEdit.value;
-  closeModal(profileModal);
+  // e.preventDefault();
+  // profileTitle.textContent = profileTitleEdit.value;
+  // descriptionJob.textContent = profileDescriptionEdit.value;
+  // // closeModal(profileModal);
 });
 
 addCardSubmit.addEventListener("submit", function (e) {

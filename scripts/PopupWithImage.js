@@ -1,7 +1,11 @@
-import Popup from "./Popup";
+import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
-  constructor() {}
+  constructor() {
+    this._image = document.querySelector(".modal-images-preview");
+  }
 
-  open() {}
+  open() {
+    this._image.classList.add("modal_opened");
+  }
 }
