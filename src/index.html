@@ -127,7 +127,11 @@
     <template id="card-template">
       <li class="card">
         <img src="" class="card__image" alt="" />
-        <img src="./images/Trash.svg" class="card__trash" alt="TrashCan" />
+        <img
+          src="<%=require('./images/Trash.svg')%>"
+          class="card__trash"
+          alt="TrashCan"
+        />
         <div class="card__description">
           <h3 class="card__title"></h3>
           <button
@@ -138,6 +142,5 @@
         </div>
       </li>
     </template>
-    <!-- <script src="./utils/constants.js"></script> -->
   </body>
 </html>

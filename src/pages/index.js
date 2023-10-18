@@ -11,6 +11,12 @@ import {
   editProfileButton,
   profileTitleEdit,
   profileDescriptionEdit,
+  addCardButton,
+  addCardSubmit,
+  profileModalForm,
+  initialCards,
+  previewImageElement,
+  previewImageTitle,
 } from "../utils/constants.js";
 
 const newCardModal = new PopupWithForm("#add-modal", () => {});
