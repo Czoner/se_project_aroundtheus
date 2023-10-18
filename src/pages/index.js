@@ -1,4 +1,3 @@
-import { container } from "webpack";
 import "../pages/index.css";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -6,6 +5,13 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../scripts/PopupWithForm.js";
 import PopupWithImage from "../scripts/PopupWithImage.js";
 import UserInfo from "../scripts/UserInfo.js";
+import {
+  profileTitle,
+  descriptionJob,
+  editProfileButton,
+  profileTitleEdit,
+  profileDescriptionEdit,
+} from "../utils/constants.js";
 
 const newCardModal = new PopupWithForm("#add-modal", () => {});
 newCardModal.setEventListeners();
