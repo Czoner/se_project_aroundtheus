@@ -12,9 +12,7 @@ export default class UserInfo {
   }
 
   setUserInfo(values) {
-    this._nameValue = document.querySelector("#profile-title-edit");
-    this._jobValue = document.querySelector("#profile-description-edit");
-    this._name.textContent = this._nameValue.value;
-    this._job.textContent = this._jobValue.value;
+    this._name.textContent = values.title;
+    this._job.textContent = values.description;
   }
 }

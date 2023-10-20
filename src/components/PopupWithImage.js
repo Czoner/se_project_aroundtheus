@@ -6,8 +6,10 @@ export default class PopupWithImage extends Popup {
     this._image = document.querySelector(".modal-images-preview");
   }
 
-  open() {
+  open(data) {
     super.open();
+    console.log(data);
+    this._image.src;
   }
 
   close() {

@@ -17,23 +17,39 @@ import {
   initialCards,
   previewImageElement,
   previewImageTitle,
+  config,
   cardList,
 } from "../utils/constants.js";
 
-const newCardModal = new PopupWithForm("#add-modal", () => {});
+const newCardModal = new PopupWithForm("#add-modal", handleButtonSubmit);
 newCardModal.setEventListeners();
+
 const userInformation = new UserInfo(profileTitle, descriptionJob);
 const newProfileModal = new PopupWithForm("#edit-profile-modal", (values) => {
   userInformation.setUserInfo(values);
 });
 newProfileModal.setEventListeners();
-const imagePreview = new PopupWithImage(".modal-images-preview", () => {});
+const imagePreview = new PopupWithImage(".modal-images-preview");
 imagePreview.setEventListeners();
+
+function handleButtonSubmit(data) {
+  // update to use data
+  const title = data.title;
+  const image = data.link;
+  const card = createCard({
+    name: title,
+    link: image,
+  });
+  cardList.setEventListeners();
+  // use form element directly
+  // no change needed
+  addFormValidator.resetValidation();
+}
 
 function fillProfileForm() {
   newProfileModal.open();
-  profileTitleEdit.value = profileTitle.textContent;
-  profileDescriptionEdit.value = descriptionJob.textContent;
+  profileTitleEdit.value = profileTitle.getUserInfo();
+  profileDescriptionEdit.value = descriptionJob.getUserInfo();
 }
 
 // profileModalForm.addEventListener("submit", function (e) {
@@ -56,28 +72,19 @@ function handleImageClick(data) {
   previewImageTitle.textContent = data.name;
 }
 
-addCardSubmit.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const title = e.target.title.value;
-  const image = e.target.link.value;
-  const card = createCard({
-    name: title,
-    link: image,
-  });
-  cardList.prepend(card);
-  closeModal(addCardModal);
-  e.target.reset();
-  addFormValidator.toggleButtonState();
-});
-
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
+// addCardSubmit.addEventListener("submit", function (e) {
+//   e.preventDefault();
+//   const title = e.target.title.value;
+//   const image = e.target.link.value;
+//   const card = createCard({
+//     name: title,
+//     link: image,
+//   });
+//   cardList.prepend(card);
+//   closeModal(addCardModal);
+//   e.target.reset();
+//   addFormValidator.toggleButtonState();
+// });
 
 function createCard(initialCards) {
   const card = new Card(initialCards, "#card-template", handleImageClick);
