@@ -40,7 +40,7 @@ function handleButtonSubmit(data) {
     name: title,
     link: image,
   });
-  cardList.setEventListeners();
+  section.addItem(card);
   // use form element directly
   // no change needed
   addFormValidator.resetValidation();
@@ -66,10 +66,7 @@ addCardButton.addEventListener("click", () => {
 });
 
 function handleImageClick(data) {
-  previewImageElement.setAttribute("src", data.link);
-  previewImageElement.setAttribute("alt", data.name);
-  imagePreview.open();
-  previewImageTitle.textContent = data.name;
+  imagePreview.open(data);
 }
 
 // addCardSubmit.addEventListener("submit", function (e) {
@@ -91,9 +88,23 @@ function createCard(initialCards) {
   return card.getview();
 }
 
-const editFormValidator = new FormValidator(config, profileModalForm);
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
+formValidators[profileModalForm.getAttribute("name")].resetValidation();
+
 const addFormValidator = new FormValidator(config, addCardSubmit);
-editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 const section = new Section(
