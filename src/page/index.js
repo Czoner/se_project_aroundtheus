@@ -21,7 +21,7 @@ import {
   cardList,
 } from "../utils/constants.js";
 
-const newCardModal = new PopupWithForm("#add-modal", handleButtonSubmit);
+const newCardModal = new PopupWithForm("#add-modal", handleCardFormSubmit);
 newCardModal.setEventListeners();
 
 const userInformation = new UserInfo(profileTitle, descriptionJob);
@@ -32,8 +32,7 @@ newProfileModal.setEventListeners();
 const imagePreview = new PopupWithImage(".modal-images-preview");
 imagePreview.setEventListeners();
 
-function handleButtonSubmit(data) {
-  // update to use data
+function handleCardFormSubmit(data) {
   const title = data.title;
   const image = data.link;
   const card = createCard({
@@ -41,23 +40,16 @@ function handleButtonSubmit(data) {
     link: image,
   });
   section.addItem(card);
-  // use form element directly
-  // no change needed
-  addFormValidator.resetValidation();
+  formValidators["add-card-form"].resetValidation();
 }
 
 function fillProfileForm() {
+  formValidators[profileModalForm.getAttribute("name")].resetValidation();
   newProfileModal.open();
-  profileTitleEdit.value = profileTitle.getUserInfo();
-  profileDescriptionEdit.value = descriptionJob.getUserInfo();
+  const userInfo = userInformation.getUserInfo();
+  profileTitleEdit.value = userInfo.name;
+  profileDescriptionEdit.value = userInfo.job;
 }
-
-// profileModalForm.addEventListener("submit", function (e) {
-//   e.preventDefault();
-//   console.log(userInformation.getUserInfo());
-//   userInformation.setUserInfo();
-//   newProfileModal.close();
-// });
 
 editProfileButton.addEventListener("click", fillProfileForm);
 
@@ -69,25 +61,10 @@ function handleImageClick(data) {
   imagePreview.open(data);
 }
 
-// addCardSubmit.addEventListener("submit", function (e) {
-//   e.preventDefault();
-//   const title = e.target.title.value;
-//   const image = e.target.link.value;
-//   const card = createCard({
-//     name: title,
-//     link: image,
-//   });
-//   cardList.prepend(card);
-//   closeModal(addCardModal);
-//   e.target.reset();
-//   addFormValidator.toggleButtonState();
-// });
-
 function createCard(initialCards) {
   const card = new Card(initialCards, "#card-template", handleImageClick);
   return card.getview();
 }
-
 const formValidators = {};
 
 const enableValidation = (config) => {
@@ -101,11 +78,6 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
-
-formValidators[profileModalForm.getAttribute("name")].resetValidation();
-
-const addFormValidator = new FormValidator(config, addCardSubmit);
-addFormValidator.enableValidation();
 
 const section = new Section(
   {

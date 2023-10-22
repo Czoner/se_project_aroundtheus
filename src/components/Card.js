@@ -29,7 +29,7 @@ export default class Card {
 
   _handleDeleteIcon() {
     this._cardElement.remove();
-    this._element = null;
+    this._cardelement = null;
   }
 
   getview() {
