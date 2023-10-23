@@ -64,11 +64,10 @@ export default class FormValidator {
   }
 
   resetValidation() {
+    this._form.reset();
     this.toggleButtonState();
-    this._submitButton.classList.add(this._settings.inactiveButtonClass);
     this._inputElements.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
-    this._form.reset();
   }
 }
