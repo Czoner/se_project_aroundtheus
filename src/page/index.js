@@ -5,6 +5,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
   profileTitle,
   descriptionJob,
@@ -33,14 +34,18 @@ const imagePreview = new PopupWithImage(".modal-images-preview");
 imagePreview.setEventListeners();
 
 function handleCardFormSubmit(data) {
-  const title = data.title;
-  const image = data.link;
-  const card = createCard({
-    name: title,
-    link: image,
+  const cardInfo = {
+    name: data.title,
+    link: data.link,
+  };
+  api.createCard(cardInfo).then((res) => {
+    const card = createCard({
+      name: res.name,
+      link: res.link,
+    });
+    section.addItem(card);
+    formValidators["add-card-form"].resetValidation();
   });
-  section.addItem(card);
-  formValidators["add-card-form"].resetValidation();
 }
 
 function fillProfileForm() {
@@ -81,22 +86,29 @@ enableValidation(config);
 
 const section = new Section(
   {
-    items: initialCards,
-    renderer: (cardData) => {
-      const cardElement = createCard(cardData);
+    renderer: (item) => {
+      const cardElement = createCard(item);
       section.addItem(cardElement);
     },
   },
   ".cards__list"
 );
-section.rendererItems();
 
-fetch("https://around-api.en.tripleten-services.com/v1", {
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "8dcb8b45-1d41-4cb1-9020-633ca7e69ba7",
+    authorization: "51ab0f76-ffed-4fe0-9a84-d0b48dc639f2",
+    "Content-Type": "application/json",
   },
-})
-  .then((res) => res.json())
-  .then((result) => {
-    console.log(result);
+});
+
+api
+  .getInitialCards()
+  .then((items) => {
+    section.rendererItems(items);
+  })
+  .catch((error) => {
+    console.error(error);
   });
+
+api.userInformation().then((res) => console.log(res));
