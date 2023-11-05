@@ -26,11 +26,12 @@ import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 const newCardModal = new PopupWithForm("#add-modal", handleCardFormSubmit);
 newCardModal.setEventListeners();
 const confirmationModal = new PopupWithConfirmation("#confirmation-modal");
+confirmationModal.setEventListeners();
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "51ab0f76-ffed-4fe0-9a84-d0b48dc639f2",
+    authorization: "79fb9209-ee9a-4da9-a138-5a38df01e74c",
     "Content-Type": "application/json",
   },
 });
@@ -62,7 +63,6 @@ function handleCardFormSubmit(data) {
 
 function handleDeleteModal(card) {
   confirmationModal.open();
-  confirmationModal.setEventListeners();
   confirmationModal.setYesAction(() => {
     api
       .deleteCard(card)
@@ -140,6 +140,5 @@ api
   });
 
 api.editUserInfo().then((profileInfo) => {
-  console.log(profileInfo);
   userInformation.setUserInfo(profileInfo);
 });
