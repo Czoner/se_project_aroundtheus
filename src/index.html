@@ -22,13 +22,13 @@
             alt="Avatar"
           />
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               class="profile__edit-button"
               type="button"
               aria-label="Description"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description"></p>
           </div>
           <button
             class="profile__add-button"
@@ -121,6 +121,16 @@
         ></button>
         <img class="modal__preview" src="#" alt="imagePreview" />
         <p class="modal__title"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="confirmation-modal">
+      <div class="modal__container">
+        <button type="submit" class="modal__close"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <form class="modal__form" name="confirmation-form">
+          <button type="submit" class="modal__button">Yes</button>
+        </form>
       </div>
     </div>
 

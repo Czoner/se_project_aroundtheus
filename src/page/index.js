@@ -21,9 +21,19 @@ import {
   config,
   cardList,
 } from "../utils/constants.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 const newCardModal = new PopupWithForm("#add-modal", handleCardFormSubmit);
 newCardModal.setEventListeners();
+const confirmationModal = new PopupWithConfirmation("#confirmation-modal");
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "51ab0f76-ffed-4fe0-9a84-d0b48dc639f2",
+    "Content-Type": "application/json",
+  },
+});
 
 const userInformation = new UserInfo(profileTitle, descriptionJob);
 const newProfileModal = new PopupWithForm("#edit-profile-modal", (values) => {
@@ -32,6 +42,8 @@ const newProfileModal = new PopupWithForm("#edit-profile-modal", (values) => {
 newProfileModal.setEventListeners();
 const imagePreview = new PopupWithImage(".modal-images-preview");
 imagePreview.setEventListeners();
+
+api.userInformation();
 
 function handleCardFormSubmit(data) {
   const cardInfo = {
@@ -45,6 +57,25 @@ function handleCardFormSubmit(data) {
     });
     section.addItem(card);
     formValidators["add-card-form"].resetValidation();
+  });
+}
+
+function handleDeleteModal(card) {
+  confirmationModal.open();
+  confirmationModal.setEventListeners();
+  confirmationModal.setYesAction(() => {
+    api
+      .deleteCard(card)
+      .then(() => {
+        confirmationModal.close();
+        card.deleteCard();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        confirmationModal.setYesAction(false);
+      });
   });
 }
 
@@ -67,7 +98,12 @@ function handleImageClick(data) {
 }
 
 function createCard(initialCards) {
-  const card = new Card(initialCards, "#card-template", handleImageClick);
+  const card = new Card(
+    initialCards,
+    "#card-template",
+    handleImageClick,
+    handleDeleteModal
+  );
   return card.getview();
 }
 const formValidators = {};
@@ -94,14 +130,6 @@ const section = new Section(
   ".cards__list"
 );
 
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "51ab0f76-ffed-4fe0-9a84-d0b48dc639f2",
-    "Content-Type": "application/json",
-  },
-});
-
 api
   .getInitialCards()
   .then((items) => {
@@ -111,4 +139,7 @@ api
     console.error(error);
   });
 
-api.userInformation().then((res) => console.log(res));
+api.editUserInfo().then((profileInfo) => {
+  console.log(profileInfo);
+  userInformation.setUserInfo(profileInfo);
+});
