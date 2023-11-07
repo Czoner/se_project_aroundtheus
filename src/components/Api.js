@@ -56,19 +56,40 @@ export default class Api {
     });
   }
 
-  deleteCard() {
-    return fetch(`${this.baseUrl}/cards/card_id`, {
+  deleteCard(cardid) {
+    console.log("cardid", cardid);
+    return fetch(`${this.baseUrl}/cards/${cardid}`, {
       method: "DELETE",
       headers: this.headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then((data) => {
-        console.log(data);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  deletingLikes(cardid) {
+    return fetch(`${this.baseUrl}/cards/${cardid}/likes`, {
+      method: "DELETE",
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  addingLikes(cardid) {
+    return fetch(`${this.baseUrl}/cards/${cardid}/likes`, {
+      method: "PUT",
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 }

@@ -20,6 +20,7 @@ import {
   previewImageTitle,
   config,
   cardList,
+  cardTemplate,
 } from "../utils/constants.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
@@ -52,23 +53,40 @@ function handleCardFormSubmit(data) {
     link: data.link,
   };
   api.createCard(cardInfo).then((res) => {
+    console.log(res);
     const card = createCard({
       name: res.name,
       link: res.link,
+      _id: res._id,
+      isLiked: res.isLiked,
     });
     section.addItem(card);
     formValidators["add-card-form"].resetValidation();
   });
 }
 
+function handleLikes(card) {
+  if (card.isLiked) {
+    api.deletingLikes(card._id).then((res) => {
+      console.log(res)
+    });
+  } else {
+    api.addingLikes(card._id).then((res) => {
+      console.log(res);
+  
+    });
+  }
+}
+
+
 function handleDeleteModal(card) {
   confirmationModal.open();
   confirmationModal.setYesAction(() => {
     api
-      .deleteCard(card)
+      .deleteCard(card.id)
       .then(() => {
         confirmationModal.close();
-        card.deleteCard();
+        card.handleDeleteCard();
       })
       .catch((err) => {
         console.error(err);
@@ -102,7 +120,9 @@ function createCard(initialCards) {
     initialCards,
     "#card-template",
     handleImageClick,
-    handleDeleteModal
+    handleDeleteModal,
+    handleLikes,
+
   );
   return card.getview();
 }
@@ -123,6 +143,7 @@ enableValidation(config);
 const section = new Section(
   {
     renderer: (item) => {
+      console.log("item2", item);
       const cardElement = createCard(item);
       section.addItem(cardElement);
     },
