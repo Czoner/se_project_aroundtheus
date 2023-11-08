@@ -12,6 +12,24 @@
   object-fit: cover;
   background-position: center;
   margin-right: 30px;
+  position: relative;
+}
+
+.profile__image_edit {
+  background: url(../Images/EditProfileButton.svg) center no-repeat;
+  width: 120px;
+  height: 120px;
+  border: none;
+  object-fit: cover;
+  z-index: 2;
+  position: absolute;
+  left: 200;
+  opacity: 0;
+}
+
+.profile__image_edit:hover {
+  opacity: 0.8;
+  color: #000;
 }
 
 .profile__info {

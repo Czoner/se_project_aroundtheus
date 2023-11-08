@@ -92,4 +92,12 @@ export default class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  updatingLikeStatus(isLiked, cardid) {
+    if (isLiked) {
+      return this.deletingLikes(cardid);
+    } else {
+      return this.addingLikes(cardid);
+    }
+  }
 }

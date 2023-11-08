@@ -21,6 +21,7 @@
             src="<%=require('./Images/jacques-cousteau.jpg')%>"
             alt="Avatar"
           />
+          <button class="profile__image_edit" type="button"></button>
           <div class="profile__info">
             <h1 class="profile__title"></h1>
             <button
@@ -127,9 +128,11 @@
     <div class="modal" id="confirmation-modal">
       <div class="modal__container">
         <button type="submit" class="modal__close"></button>
-        <h2 class="modal__heading">Are you sure?</h2>
+        <h2 class="modal__heading modal__heading_deleting">Are you sure?</h2>
         <form class="modal__form" name="confirmation-form">
-          <button type="submit" class="modal__button">Yes</button>
+          <button type="submit" class="modal__button modal__button_deleting">
+            Yes
+          </button>
         </form>
       </div>
     </div>

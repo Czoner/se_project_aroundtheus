@@ -66,18 +66,10 @@ function handleCardFormSubmit(data) {
 }
 
 function handleLikes(card) {
-  if (card.isLiked) {
-    api.deletingLikes(card._id).then((res) => {
-      console.log(res)
-    });
-  } else {
-    api.addingLikes(card._id).then((res) => {
-      console.log(res);
-  
-    });
-  }
+  api.updatingLikeStatus(card.isLiked(), card.getId()).then(() => {
+    card.handleLikeIcon();
+  });
 }
-
 
 function handleDeleteModal(card) {
   confirmationModal.open();
@@ -121,8 +113,7 @@ function createCard(initialCards) {
     "#card-template",
     handleImageClick,
     handleDeleteModal,
-    handleLikes,
-
+    handleLikes
   );
   return card.getview();
 }
@@ -143,7 +134,6 @@ enableValidation(config);
 const section = new Section(
   {
     renderer: (item) => {
-      console.log("item2", item);
       const cardElement = createCard(item);
       section.addItem(cardElement);
     },
