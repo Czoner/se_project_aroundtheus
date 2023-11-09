@@ -100,7 +100,7 @@ function handleDeleteModal(card) {
   confirmationModal.open();
   confirmationModal.setYesAction(() => {
     api
-      .deleteCard(card.id)
+      .deleteCard(card._id)
       .then(() => {
         confirmationModal.close();
         card.handleDeleteCard();
