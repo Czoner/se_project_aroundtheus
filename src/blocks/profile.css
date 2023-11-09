@@ -29,7 +29,8 @@
 
 .profile__image_edit:hover {
   opacity: 0.8;
-  color: #000;
+  background-color: #000;
+  cursor: pointer;
 }
 
 .profile__info {

@@ -16,11 +16,7 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            class="profile__image"
-            src="<%=require('./Images/jacques-cousteau.jpg')%>"
-            alt="Avatar"
-          />
+          <img class="profile__image" src="" alt="Avatar" />
           <button class="profile__image_edit" type="button"></button>
           <div class="profile__info">
             <h1 class="profile__title"></h1>
@@ -55,7 +51,7 @@
             class="modal__input"
             type="text"
             id="profile-title-edit"
-            name="title"
+            name="name"
             placeholder="Name"
             minlength="2"
             maxlength="40"
@@ -66,7 +62,7 @@
             class="modal__input"
             type="text"
             id="profile-description-edit"
-            name="description"
+            name="about"
             placeholder="Description"
             minlength="2"
             maxlength="200"
@@ -74,6 +70,31 @@
           />
           <span class="modal__error" id="profile-description-edit-error"></span>
           <button type="submit" class="modal__button">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="edit-profile-image">
+      <div class="modal__container">
+        <button type="submit" class="modal__close"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" name="edit-profile-image">
+          <input
+            class="modal__input modal__input_type_link"
+            type="url"
+            id="edit-profile-image"
+            name="link"
+            placeholder="Image link"
+            required
+          />
+          <span class="modal__error" id="edit-profile-image-error"></span>
+          <button
+            type="submit"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>

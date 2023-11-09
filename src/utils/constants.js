@@ -53,6 +53,7 @@ export const profileTitleEdit = document.querySelector("#profile-title-edit");
 export const profileDescriptionEdit = profileModal.querySelector(
   "#profile-description-edit"
 );
+export const profileEditImage = document.querySelector(".profile__image_edit");
 
 export const addCardButton = document.querySelector(".profile__add-button");
 export const addCardModal = document.querySelector("#add-modal");

@@ -4,6 +4,8 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import PopupWithProfileImage from "../components/PopupWithProfileImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
@@ -21,8 +23,8 @@ import {
   config,
   cardList,
   cardTemplate,
+  profileEditImage,
 } from "../utils/constants.js";
-import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 const newCardModal = new PopupWithForm("#add-modal", handleCardFormSubmit);
 newCardModal.setEventListeners();
@@ -36,24 +38,46 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+const profileImage = document.querySelector(".profile__image");
 
-const userInformation = new UserInfo(profileTitle, descriptionJob);
+const userInformation = new UserInfo(
+  profileTitle,
+  descriptionJob,
+  profileImage
+);
 const newProfileModal = new PopupWithForm("#edit-profile-modal", (values) => {
   userInformation.setUserInfo(values);
+  newProfileModal.saving(true);
+  api.editUserInfo(values).then(() => {
+    newProfileModal.saving(false);
+    userInformation.setUserInfo(values);
+  });
 });
 newProfileModal.setEventListeners();
 const imagePreview = new PopupWithImage(".modal-images-preview");
 imagePreview.setEventListeners();
 
-api.userInformation();
+const profileImageModal = new PopupWithProfileImage("#edit-profile-image");
+profileImageModal.setEventListeners();
+
+const profileAvatarEdit = new PopupWithForm(
+  "#edit-profile-image",
+  handleProfileAvatar
+);
+profileAvatarEdit.setEventListeners();
+
+api.getUserInformation().then((user) => {
+  userInformation.setUserInfo({ name: user.name, about: user.about });
+  userInformation.setAvatar(user.avatar);
+});
 
 function handleCardFormSubmit(data) {
   const cardInfo = {
     name: data.title,
     link: data.link,
   };
+  newCardModal.saving(true);
   api.createCard(cardInfo).then((res) => {
-    console.log(res);
     const card = createCard({
       name: res.name,
       link: res.link,
@@ -61,6 +85,7 @@ function handleCardFormSubmit(data) {
       isLiked: res.isLiked,
     });
     section.addItem(card);
+    newCardModal.saving(false);
     formValidators["add-card-form"].resetValidation();
   });
 }
@@ -89,12 +114,24 @@ function handleDeleteModal(card) {
   });
 }
 
+function handleProfileAvatar(img) {
+  profileAvatarEdit.saving(true);
+  api.updatingProfileImage(img.link).then((user) => {
+    userInformation.setAvatar(user.avatar);
+    profileAvatarEdit.saving(false);
+  });
+}
+
+profileEditImage.addEventListener("click", () => {
+  profileImageModal.open();
+});
+
 function fillProfileForm() {
   formValidators[profileModalForm.getAttribute("name")].resetValidation();
   newProfileModal.open();
   const userInfo = userInformation.getUserInfo();
   profileTitleEdit.value = userInfo.name;
-  profileDescriptionEdit.value = userInfo.job;
+  profileDescriptionEdit.value = userInfo.about;
 }
 
 editProfileButton.addEventListener("click", fillProfileForm);
@@ -149,7 +186,3 @@ api
   .catch((error) => {
     console.error(error);
   });
-
-api.editUserInfo().then((profileInfo) => {
-  userInformation.setUserInfo(profileInfo);
-});

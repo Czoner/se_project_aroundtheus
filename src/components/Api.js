@@ -15,12 +15,10 @@ export default class Api {
     });
   }
 
-  userInformation() {
+  getUserInformation() {
     return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers,
-    })
-      .then((res) => res.json())
-      .then((result) => {});
+    }).then((res) => res.json());
   }
 
   profileInfo() {
@@ -40,13 +38,13 @@ export default class Api {
     });
   }
 
-  editUserInfo() {
+  editUserInfo(values) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        about: "Physicist and Chemist",
+        name: values.name,
+        about: values.about,
       }),
     }).then((res) => {
       if (res.ok) {
@@ -99,5 +97,20 @@ export default class Api {
     } else {
       return this.addingLikes(cardid);
     }
+  }
+
+  updatingProfileImage(image) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: image,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 }
