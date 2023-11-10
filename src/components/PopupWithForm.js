@@ -29,9 +29,9 @@ export default class PopupWithForm extends Popup {
     return formValues;
   }
 
-  saving(isLoading) {
+  renderLoading(isLoading, loadingText = "Saving...") {
     if (isLoading) {
-      this._savingButton.textContent = "Saving...";
+      this._savingButton.textContent = loadingText;
     } else {
       this._savingButton.textContent = this._savingButtonText;
     }
@@ -42,7 +42,6 @@ export default class PopupWithForm extends Popup {
     this._popupForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this.getInputValues());
-      this.close();
     });
   }
 }

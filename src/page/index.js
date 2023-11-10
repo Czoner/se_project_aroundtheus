@@ -5,7 +5,6 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
-import PopupWithProfileImage from "../components/PopupWithProfileImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
@@ -46,19 +45,23 @@ const userInformation = new UserInfo(
   profileImage
 );
 const newProfileModal = new PopupWithForm("#edit-profile-modal", (values) => {
-  userInformation.setUserInfo(values);
-  newProfileModal.saving(true);
-  api.editUserInfo(values).then(() => {
-    newProfileModal.saving(false);
-    userInformation.setUserInfo(values);
-  });
+  newProfileModal.renderLoading(true);
+  api
+    .editUserInfo(values)
+    .then(() => {
+      newProfileModal.close();
+      userInformation.setUserInfo(values);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      newProfileModal.renderLoading(false);
+    });
 });
 newProfileModal.setEventListeners();
 const imagePreview = new PopupWithImage(".modal-images-preview");
 imagePreview.setEventListeners();
-
-const profileImageModal = new PopupWithProfileImage("#edit-profile-image");
-profileImageModal.setEventListeners();
 
 const profileAvatarEdit = new PopupWithForm(
   "#edit-profile-image",
@@ -76,24 +79,37 @@ function handleCardFormSubmit(data) {
     name: data.title,
     link: data.link,
   };
-  newCardModal.saving(true);
-  api.createCard(cardInfo).then((res) => {
-    const card = createCard({
-      name: res.name,
-      link: res.link,
-      _id: res._id,
-      isLiked: res.isLiked,
+  newCardModal.renderLoading(true);
+  api
+    .createCard(cardInfo)
+    .then((res) => {
+      const card = createCard({
+        name: res.name,
+        link: res.link,
+        _id: res._id,
+        isLiked: res.isLiked,
+      });
+      section.addItem(card);
+      newCardModal.close();
+      formValidators["add-card-form"].resetValidation();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      newCardModal.renderLoading(false);
     });
-    section.addItem(card);
-    newCardModal.saving(false);
-    formValidators["add-card-form"].resetValidation();
-  });
 }
 
 function handleLikes(card) {
-  api.updatingLikeStatus(card.isLiked(), card.getId()).then(() => {
-    card.handleLikeIcon();
-  });
+  api
+    .updatingLikeStatus(card.isLiked(), card.getId())
+    .then(() => {
+      card.handleLikeIcon();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 function handleDeleteModal(card) {
@@ -115,15 +131,24 @@ function handleDeleteModal(card) {
 }
 
 function handleProfileAvatar(img) {
-  profileAvatarEdit.saving(true);
-  api.updatingProfileImage(img.link).then((user) => {
-    userInformation.setAvatar(user.avatar);
-    profileAvatarEdit.saving(false);
-  });
+  profileAvatarEdit.renderLoading(true);
+  api
+    .updatingProfileImage(img.link)
+    .then((user) => {
+      userInformation.setAvatar(user.avatar);
+      profileAvatarEdit.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      profileAvatarEdit.renderLoading(false);
+    });
 }
 
 profileEditImage.addEventListener("click", () => {
-  profileImageModal.open();
+  profileAvatarEdit.open();
+  profileAvatarEdit.resetValidation();
 });
 
 function fillProfileForm() {
