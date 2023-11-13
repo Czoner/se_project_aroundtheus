@@ -24,6 +24,7 @@ import {
   cardTemplate,
   profileEditImage,
 } from "../utils/constants.js";
+import { values } from "core-js/core/array";
 
 const newCardModal = new PopupWithForm("#add-modal", handleCardFormSubmit);
 newCardModal.setEventListeners();
@@ -44,22 +45,42 @@ const userInformation = new UserInfo(
   descriptionJob,
   profileImage
 );
-const newProfileModal = new PopupWithForm("#edit-profile-modal", (values) => {
-  newProfileModal.renderLoading(true);
-  api
-    .editUserInfo(values)
-    .then(() => {
-      newProfileModal.close();
-      userInformation.setUserInfo(values);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      newProfileModal.renderLoading(false);
-    });
-});
+const newProfileModal = new PopupWithForm(
+  "#edit-profile-modal",
+  handleProfileFormSubmit
+);
 newProfileModal.setEventListeners();
+
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  // here we change the button text
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      // We need to close only in `then`
+      popupInstance.close();
+    })
+    // we need to catch possible errors
+    // console.error is used to handle errors if you don’t have any other ways for that
+    .catch(console.error)
+    // in `finally` we need to return the initial button text back in any case
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
+
+// here is an example of the profile form handling
+function handleProfileFormSubmit(inputValues) {
+  // we create a function that returns a promise
+  function makeRequest() {
+    // `return` lets us use a promise chain `then, catch, finally` inside `handleSubmit`
+    return api.editUserInfo(inputValues).then((userData) => {
+      userInformation.setUserInfo(userData);
+    });
+  }
+  // Here we call the function passing the request, popup instance and if we need some other loading text we can pass it as the 3rd argument
+  handleSubmit(makeRequest, newProfileModal);
+}
+
 const imagePreview = new PopupWithImage(".modal-images-preview");
 imagePreview.setEventListeners();
 
@@ -137,6 +158,7 @@ function handleProfileAvatar(img) {
     .then((user) => {
       userInformation.setAvatar(user.avatar);
       profileAvatarEdit.close();
+      formValidators["edit-profile-image"].resetValidation();
     })
     .catch((err) => {
       console.error(err);
@@ -148,7 +170,6 @@ function handleProfileAvatar(img) {
 
 profileEditImage.addEventListener("click", () => {
   profileAvatarEdit.open();
-  profileAvatarEdit.resetValidation();
 });
 
 function fillProfileForm() {
