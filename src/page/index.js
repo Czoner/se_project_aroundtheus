@@ -24,7 +24,6 @@ import {
   cardTemplate,
   profileEditImage,
 } from "../utils/constants.js";
-import { values } from "core-js/core/array";
 
 const newCardModal = new PopupWithForm("#add-modal", handleCardFormSubmit);
 newCardModal.setEventListeners();
@@ -73,9 +72,12 @@ function handleProfileFormSubmit(inputValues) {
   // we create a function that returns a promise
   function makeRequest() {
     // `return` lets us use a promise chain `then, catch, finally` inside `handleSubmit`
-    return api.editUserInfo(inputValues).then((userData) => {
-      userInformation.setUserInfo(userData);
-    });
+    return api
+      .editUserInfo(inputValues)
+      .then((userData) => {
+        userInformation.setUserInfo(userData);
+      })
+      .catch(console.error);
   }
   // Here we call the function passing the request, popup instance and if we need some other loading text we can pass it as the 3rd argument
   handleSubmit(makeRequest, newProfileModal);
