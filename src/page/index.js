@@ -72,12 +72,9 @@ function handleProfileFormSubmit(inputValues) {
   // we create a function that returns a promise
   function makeRequest() {
     // `return` lets us use a promise chain `then, catch, finally` inside `handleSubmit`
-    return api
-      .editUserInfo(inputValues)
-      .then((userData) => {
-        userInformation.setUserInfo(userData);
-      })
-      .catch(console.error);
+    return api.editUserInfo(inputValues).then((userData) => {
+      userInformation.setUserInfo(userData);
+    });
   }
   // Here we call the function passing the request, popup instance and if we need some other loading text we can pass it as the 3rd argument
   handleSubmit(makeRequest, newProfileModal);
@@ -92,20 +89,21 @@ const profileAvatarEdit = new PopupWithForm(
 );
 profileAvatarEdit.setEventListeners();
 
-api.getUserInformation().then((user) => {
-  userInformation.setUserInfo({ name: user.name, about: user.about });
-  userInformation.setAvatar(user.avatar);
-});
+api
+  .getUserInformation()
+  .then((user) => {
+    userInformation.setUserInfo({ name: user.name, about: user.about });
+    userInformation.setAvatar(user.avatar);
+  })
+  .catch(console.error);
 
 function handleCardFormSubmit(data) {
   const cardInfo = {
     name: data.title,
     link: data.link,
   };
-  newCardModal.renderLoading(true);
-  api
-    .createCard(cardInfo)
-    .then((res) => {
+  function cardRequesting() {
+    return api.createCard(cardInfo).then((res) => {
       const card = createCard({
         name: res.name,
         link: res.link,
@@ -115,13 +113,9 @@ function handleCardFormSubmit(data) {
       section.addItem(card);
       newCardModal.close();
       formValidators["add-card-form"].resetValidation();
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      newCardModal.renderLoading(false);
     });
+  }
+  handleSubmit(cardRequesting, newCardModal);
 }
 
 function handleLikes(card) {
