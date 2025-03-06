@@ -16,19 +16,16 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            class="profile__image"
-            src="<%=require('./Images/jacques-cousteau.jpg')%>"
-            alt="Avatar"
-          />
+          <img class="profile__image" src="" alt="Avatar" />
+          <button class="profile__image_edit" type="button"></button>
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               class="profile__edit-button"
               type="button"
               aria-label="Description"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description"></p>
           </div>
           <button
             class="profile__add-button"
@@ -54,7 +51,7 @@
             class="modal__input"
             type="text"
             id="profile-title-edit"
-            name="title"
+            name="name"
             placeholder="Name"
             minlength="2"
             maxlength="40"
@@ -65,7 +62,7 @@
             class="modal__input"
             type="text"
             id="profile-description-edit"
-            name="description"
+            name="about"
             placeholder="Description"
             minlength="2"
             maxlength="200"
@@ -73,6 +70,31 @@
           />
           <span class="modal__error" id="profile-description-edit-error"></span>
           <button type="submit" class="modal__button">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="edit-profile-image">
+      <div class="modal__container">
+        <button type="submit" class="modal__close"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" name="edit-profile-image">
+          <input
+            class="modal__input modal__input_type_link"
+            type="url"
+            id="edit-profile-image"
+            name="link"
+            placeholder="Image link"
+            required
+          />
+          <span class="modal__error" id="edit-profile-image-error"></span>
+          <button
+            type="submit"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -121,6 +143,18 @@
         ></button>
         <img class="modal__preview" src="#" alt="imagePreview" />
         <p class="modal__title"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="confirmation-modal">
+      <div class="modal__container">
+        <button type="submit" class="modal__close"></button>
+        <h2 class="modal__heading modal__heading_deleting">Are you sure?</h2>
+        <form class="modal__form" name="confirmation-form">
+          <button type="submit" class="modal__button modal__button_deleting">
+            Yes
+          </button>
+        </form>
       </div>
     </div>
 

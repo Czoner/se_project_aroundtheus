@@ -54,6 +54,10 @@
   height: 23px;
 }
 
+.modal__heading_deleting {
+  margin: 0;
+}
+
 .modal__title {
   font-family: "Inter", Arial, sans-serif;
   font-size: 12px;
@@ -142,6 +146,10 @@
 
 .modal__button_disabled:hover {
   opacity: 0.2;
+}
+
+.modal__button_deleting {
+  margin-top: 38px;
 }
 
 @media screen and (max-width: 635px) {
