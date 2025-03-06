@@ -14,14 +14,8 @@ import {
   profileTitleEdit,
   profileDescriptionEdit,
   addCardButton,
-  addCardSubmit,
   profileModalForm,
-  initialCards,
-  previewImageElement,
-  previewImageTitle,
   config,
-  cardList,
-  cardTemplate,
   profileEditImage,
 } from "../utils/constants.js";
 
